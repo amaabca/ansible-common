@@ -1,2 +1,69 @@
 ---
-# tasks file for ansible-common
+- name: Setup deploy user
+  user: name={{deployer}} comment="deploy user" state=present shell=/bin/bash home={{deployer_home_dir}}
+
+- name: Set up authorized_keys for admin user
+  authorized_key: user={{ ansible_ssh_user }} key="{{ item }}"
+  with_file:
+    - {{ deployers_path }}
+
+- name: Set up authorized_keys for app deployment user
+  authorized_key: user={{ deployer }} key="{{ item }}"
+  with_file:
+    - {{ deployers_path }}
+
+- name: Update Apt cache (equivalent to apt-get update)
+  apt: update_cache=yes
+
+- name: Install build and system tools
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - git-core
+    - ntp
+    - build-essential
+    - libssl-dev
+    - libreadline6-dev
+    - tree
+    - htop
+    - gt5
+    - nodejs
+    - nodejs-legacy
+    - runit
+    - python-pycurl
+    - unzip
+    - ack-grep
+
+- name: Setup New Relic monitoring
+  apt_repository: repo='deb http://apt.newrelic.com/debian/ newrelic non-free' state=present
+
+- name: Trust New Relic cert
+  apt_key: url=https://download.newrelic.com/548C16BF.gpg state=present
+
+- name: Install New Relic package
+  apt: pkg=newrelic-sysmond state=latest force=yes
+
+- name: Set New Relic license key
+  shell: nrsysmond-config --set license_key={{ NEW_RELIC_KEY }}
+  notify:
+  - start new_relic
+
+- name: Install database clients
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - libpq-dev
+    - postgresql-client
+
+- name: Install logrotate
+  apt: pkg=logrotate state=present
+
+- action: template src=logrotate.nginx dest=/etc/logrotate.d/nginx owner=root group=root
+
+- action: template src=logrotate.rails dest=/etc/logrotate.d/rails owner=root group=root
+
+- action: template src=logrotate.cron dest=/etc/cron.daily/logrotate owner=root group=root
+
+- name: Get latest version of vim
+  apt: pkg=vim state=latest
+
+- name: Set vim as the default editor
+  shell: ln -sf $(which vim) /etc/alternatives/editor

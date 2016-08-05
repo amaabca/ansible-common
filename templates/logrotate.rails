@@ -1,0 +1,10 @@
+/srv/**/log/*.log {
+  su root root
+  daily
+  size 50M
+  rotate 3
+  missingok
+  notifempty
+  delaycompress
+  copytruncate
+}
