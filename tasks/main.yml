@@ -5,12 +5,12 @@
 - name: Set up authorized_keys for admin user
   authorized_key: user={{ ansible_ssh_user }} key="{{ item }}"
   with_file:
-    - {{ deployers_path }}
+    - "{{ deployers_path }}"
 
 - name: Set up authorized_keys for app deployment user
   authorized_key: user={{ deployer }} key="{{ item }}"
   with_file:
-    - {{ deployers_path }}
+    - "{{ deployers_path }}"
 
 - name: Update Apt cache (equivalent to apt-get update)
   apt: update_cache=yes
