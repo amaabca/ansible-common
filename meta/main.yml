@@ -1,16 +1,17 @@
 galaxy_info:
   author: Alberta Motor Association
-  description: Common server configuration
+  description: Common Server Provisioning for Ubuntu 16.04
   company: Alberta Motor Association
+
   license: MIT
+
   min_ansible_version: 2.0
+
   platforms:
   - name: Ubuntu
     versions:
-    - trusty
+      - xenial
   galaxy_tags:
-    - rsyslog
-    - loggly
-    - logging
-    - tls
+    - provisioning
+    - ssh
 dependencies: []
