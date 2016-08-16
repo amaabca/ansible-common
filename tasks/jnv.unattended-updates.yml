@@ -1,0 +1,5 @@
+---
+- name: remove 20auto-upgrades.ucf-dist if present. Workaround for https://github.com/jnv/ansible-role-unattended-upgrades/issues/10
+  file: path=/etc/apt/apt.conf.d/20auto-upgrades.ucf-dist state=absent
+- name: Force install of update-notifier-common (copied over from previous role)
+  apt: pkg=update-notifier-common state=latest force=yes

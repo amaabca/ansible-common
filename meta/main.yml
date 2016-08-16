@@ -14,4 +14,5 @@ galaxy_info:
   galaxy_tags:
     - provisioning
     - ssh
-dependencies: []
+dependencies:
+  - jnv.unattended-upgrades
