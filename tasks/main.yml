@@ -12,6 +12,12 @@
   with_file:
     - "{{ deployers_path }}"
 
+- name: Include tasks to fix jnv.unattended-updates
+  include: jnv.unattended-updates.yml
+
+- name: Free up inodes
+  include: inode-fix.yml
+
 - name: Update Apt cache (equivalent to apt-get update)
   apt: update_cache=yes
 
