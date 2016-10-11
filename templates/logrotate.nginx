@@ -10,6 +10,10 @@
   sharedscripts
   postrotate
     [ -f /var/run/nginx.pid ] && kill -USR1 $(cat /var/run/nginx.pid)
-    {% if common_restart_rsyslog %} reload rsyslog >/dev/null 2>&1 || true {% endif %}
+    {% if common_restart_rsyslog %}
+    service rsyslog stop
+    rm /var/spool/rsyslog/imfile-state*
+    service rsyslog start
+    {% endif %}
   endscript
 }

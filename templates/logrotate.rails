@@ -10,7 +10,9 @@
   copytruncate
   {% if common_restart_rsyslog %}
   postrotate
-    reload rsyslog >/dev/null 2>&1 || true
+    service rsyslog stop
+    rm /var/spool/rsyslog/imfile-state*
+    service rsyslog start
   endscript
   {% endif %}
 }
