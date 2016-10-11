@@ -1,3 +1,4 @@
+# {{ ansible_managed }}
 /srv/**/log/*.log {
   su root root
   daily
@@ -7,4 +8,11 @@
   notifempty
   delaycompress
   copytruncate
+  {% if common_restart_rsyslog %}
+  postrotate
+    service rsyslog stop
+    rm /var/spool/rsyslog/imfile-state*
+    service rsyslog start
+  endscript
+  {% endif %}
 }

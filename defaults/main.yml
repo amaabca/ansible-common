@@ -1,2 +1,3 @@
 ---
 deployers_path: "~/"
+common_restart_rsyslog: true
