@@ -12,6 +12,10 @@
   with_file:
     - "{{ deployers_path }}"
 
+- name: install unattended-upgrades
+  role: jnv.unattended-upgrades
+  unattended_origins_patterns: "{{ unattended_origins_patterns }}"
+
 - name: Include tasks to fix jnv.unattended-updates
   include: jnv.unattended-updates.yml
 

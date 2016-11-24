@@ -1,2 +1,5 @@
 ---
 deployers_path: "~/"
+unattended_origins_patterns:
+- 'o=${distro_id},n=${distro_codename}'
+- 'o=${distro_id},n=${distro_codename}-security'
