@@ -15,4 +15,4 @@ galaxy_info:
     - provisioning
     - ssh
 dependencies:
-  - jnv.unattended-upgrades
+  - { role: jnv.unattended-upgrades }
