@@ -12,6 +12,8 @@
 - name: get list of nginx packages
   shell: "apt-mark showauto | grep nginx"
   register: nginx_packages
+  failed_when: >
+    nginx_packages.rc != 0 and nginx_packages.stderr != ""
 - name: lock list of nginx packages at current version
   command: "apt-mark hold {{ item }}"
   with_items: "{{ nginx_packages.stdout_lines }}"
