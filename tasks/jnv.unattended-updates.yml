@@ -6,6 +6,8 @@
 - name: get list of ruby packages
   shell: "apt-mark showauto | grep ruby"
   register: ruby_packages
+  failed_when: >
+    ruby_packages.rc != 0 and ruby_packages.stderr != ""
 - name: lock list of ruby packages at current version
   command: "apt-mark hold {{ item }}"
   with_items: "{{ ruby_packages.stdout_lines }}"
