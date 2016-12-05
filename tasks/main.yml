@@ -34,7 +34,6 @@
     - gt5
     - nodejs
     - nodejs-legacy
-    - runit
     - python-pycurl
     - unzip
     - ack-grep
