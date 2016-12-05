@@ -6,12 +6,16 @@
 - name: get list of ruby packages
   shell: "apt-mark showauto | grep ruby"
   register: ruby_packages
+  failed_when: >
+    ruby_packages.rc != 0 and ruby_packages.stderr != ""
 - name: lock list of ruby packages at current version
   command: "apt-mark hold {{ item }}"
   with_items: "{{ ruby_packages.stdout_lines }}"
 - name: get list of nginx packages
   shell: "apt-mark showauto | grep nginx"
   register: nginx_packages
+  failed_when: >
+    nginx_packages.rc != 0 and nginx_packages.stderr != ""
 - name: lock list of nginx packages at current version
   command: "apt-mark hold {{ item }}"
   with_items: "{{ nginx_packages.stdout_lines }}"
