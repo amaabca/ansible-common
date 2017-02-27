@@ -16,3 +16,4 @@ galaxy_info:
     - ssh
 dependencies:
   - jnv.unattended-upgrades
+  - amaabca.locale
