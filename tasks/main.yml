@@ -44,13 +44,14 @@
 - name: Trust New Relic cert
   apt_key: url=https://download.newrelic.com/548C16BF.gpg state=present
 
-- name: Install New Relic package
-  apt: pkg=newrelic-sysmond state=latest force=yes
-
-- name: Set New Relic license key
-  shell: nrsysmond-config --set license_key={{ NEW_RELIC_KEY }}
-  notify:
-  - start new_relic
+- name: Set up Datadog
+  include_role:
+    name: Datadog.datadog
+  vars:
+    become: yes
+    datadog_api_key: "{{ secrets.datadog_api_key }}"
+  tags:
+    - datadog
 
 - name: Install database clients
   apt: pkg={{ item }} state=latest

@@ -8,7 +8,7 @@ Requirements
 
 you will need:
 
-1 - New Relic account and key
+1 - Datadog account and API key
 
 2 - File with deployers ssh keys
 
@@ -19,6 +19,7 @@ Store the following in [a vault file](http://docs.ansible.com/ansible/playbooks_
 
 ```yaml
 secrets:
+  datadog_api_token: yourdatadogtokenhere
   loggly:
     token: yourlogglytokenhere
 ```
