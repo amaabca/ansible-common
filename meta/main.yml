@@ -17,3 +17,4 @@ galaxy_info:
 dependencies:
   - jnv.unattended-upgrades
   - amaabca.locale
+  - Datadog.datadog
