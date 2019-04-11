@@ -1,7 +1,7 @@
 Role Name
 =========
 
-This role sets deploy user, push up sudoers and deployers keys, installs and set new relic monitorin, install logrotate and set vim as default text editor.
+This role sets deploy user, push up sudoers and deployers keys, install logrotate and set vim as default text editor.
 
 Requirements
 ------------
@@ -19,15 +19,13 @@ Store the following in [a vault file](http://docs.ansible.com/ansible/playbooks_
 
 ```yaml
 secrets:
-  datadog_api_token: yourdatadogtokenhere
-  loggly:
-    token: yourlogglytokenhere
+  datadog_api_token: <datadog_token>
+deployer: <app_name>
+deployer_home_dir: "/srv/{{ deployer }}"
+root_user: <root_user_name> # optional
+deployers_path: <path_to_deployers_ssh_public_key_template>
+sudoers_path: <path_to_sudoers_ssh_public_key_template> # defaults to deployers_path
 ```
-
-Dependencies
-------------
-
-All configuration was done with rsyslogd 7.4.4.
 
 Example Playbook
 ----------------
