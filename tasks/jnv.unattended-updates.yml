@@ -1,21 +1,10 @@
 ---
-- name: remove 20auto-upgrades.ucf-dist if present. Workaround for https://github.com/jnv/ansible-role-unattended-upgrades/issues/10
-  file: path=/etc/apt/apt.conf.d/20auto-upgrades.ucf-dist state=absent
-- name: Force install of update-notifier-common (copied over from previous role)
-  apt: pkg=update-notifier-common state=latest force=yes
-- name: get list of ruby packages
-  shell: "apt-mark showauto | grep ruby"
-  register: ruby_packages
-  failed_when: >
-    ruby_packages.rc != 0 and ruby_packages.stderr != ""
-- name: lock list of ruby packages at current version
-  command: "apt-mark hold {{ item }}"
-  with_items: "{{ ruby_packages.stdout_lines }}"
-- name: get list of nginx packages
-  shell: "apt-mark showauto | grep nginx"
-  register: nginx_packages
-  failed_when: >
-    nginx_packages.rc != 0 and nginx_packages.stderr != ""
-- name: lock list of nginx packages at current version
-  command: "apt-mark hold {{ item }}"
-  with_items: "{{ nginx_packages.stdout_lines }}"
+- name: Cleanup jnv.unattended-updates
+  file:
+    path: '/etc/apt/apt.conf.d/20auto-upgrades.ucf-dist'
+    state: absent
+- name: Install update-notifier-common
+  apt:
+    pkg: update-notifier-common
+    state: latest
+    force: yes

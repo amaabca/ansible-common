@@ -1,3 +1,0 @@
----
-- name: Cleans up apt cache to free up inodes
-  command: apt-get clean

@@ -1,3 +1,2 @@
 ---
-- name: start new_relic
-  action: service name=newrelic-sysmond state=started
+# handlers file for ansible-common
