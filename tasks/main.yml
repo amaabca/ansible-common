@@ -43,6 +43,26 @@
     name: Datadog.datadog
   vars:
     datadog_api_key: "{{ secrets.datadog_api_key }}"
+    datadog_config:
+      apm_config:
+        enabled: true
+        max_traces_per_second: 10
+        ignore_resources:
+          - 'GET /health_check'
+      process_config:
+        enabled: 'true'
+      force_tls_12: true
+      collect_ec2_tags: true
+  tags:
+    - datadog
+
+- name: Configure DataDog Disk Check Whitelist
+  template:
+    src: disk.yaml.j2
+    dest: /etc/datadog-agent/conf.d/disk.d/conf.yaml
+    owner: dd-agent
+    group: dd-agent
+    mode: 0644
   tags:
     - datadog
 
