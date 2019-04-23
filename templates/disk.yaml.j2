@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+init_config:
+
+instances:
+  - use_mount: false
+    file_system_whitelist:
+      - ext[34]$
+    tag_by_filesystem: true
