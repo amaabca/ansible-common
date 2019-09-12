@@ -25,6 +25,7 @@ deployer_home_dir: "/srv/{{ deployer }}"
 root_user: <root_user_name> # optional
 deployers_path: <path_to_deployers_ssh_public_key_template>
 sudoers_path: <path_to_sudoers_ssh_public_key_template> # defaults to deployers_path
+ssh_key_options: 'no-pty' # defaults to 'no-X11-forwarding,no-port-forwarding'. See https://man.openbsd.org/OpenBSD-current/man8/sshd.8#AUTHORIZED_KEYS_FILE_FORMAT.
 ```
 
 Example Playbook

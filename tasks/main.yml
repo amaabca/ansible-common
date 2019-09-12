@@ -9,17 +9,19 @@
 
 - name: Set up authorized_keys for admin user
   authorized_key:
+    exclusive: yes
+    key: "{{ lookup('file', sudoers_path) }}"
+    key_options: "{{ ssh_key_options }}"
+    state: present
     user: "{{ root_user }}"
-    key: "{{ item }}"
-  with_file:
-    - "{{ sudoers_path }}"
 
 - name: Set up authorized_keys for app deployment user
   authorized_key:
+    exclusive: yes
+    key: "{{ lookup('file', deployers_path) }}"
+    key_options: "{{ ssh_key_options }}"
+    state: present
     user: "{{ deployer }}"
-    key: "{{ item }}"
-  with_file:
-    - "{{ deployers_path }}"
 
 - name: Include tasks to fix jnv.unattended-updates
   include: jnv.unattended-updates.yml
