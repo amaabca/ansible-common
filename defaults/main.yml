@@ -2,3 +2,4 @@
 deployers_path: "~/"
 root_user: "{{ ansible_ssh_user }}"
 sudoers_path: "{{ deployers_path }}"
+ssh_key_options: "no-X11-forwarding,no-port-forwarding"
