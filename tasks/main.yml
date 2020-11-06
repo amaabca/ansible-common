@@ -37,8 +37,13 @@
       - ntp
       - build-essential
       - htop
-      - nodejs
     state: latest
+
+- name: Alias python as python3
+  file:
+    dest: /usr/bin/python
+    src: /usr/bin/python3
+    state: link
 
 - name: Set up Datadog
   include_role:
